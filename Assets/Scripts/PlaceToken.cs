@@ -1,18 +1,19 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class PlaceToken : MonoBehaviour
 {
     public GameObject Token;
-    public GameObject DefaultArea;
     public GameObject[] SelectedArea;
+    private int defaultNumber = 0;
     //get&set for pickingArea
 
     private void Start()
     {
-        DefaultArea.SetActive(true);
+        SelectedArea[defaultNumber].SetActive(true);
 
     }
 
@@ -28,27 +29,44 @@ public class PlaceToken : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            DefaultArea.SetActive(false);
-            DefaultArea = SelectedArea[3];
-            DefaultArea.SetActive(true);
+            SelectedArea[defaultNumber].SetActive(false);
+            if (defaultNumber <= 5)
+                defaultNumber += 3;
+
+                SelectedArea[defaultNumber].SetActive(true);
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            DefaultArea.SetActive(false);
-            DefaultArea = SelectedArea[0];
-            DefaultArea.SetActive(true);
+            SelectedArea[defaultNumber].SetActive(false);
+            if (defaultNumber >= 3)
+               defaultNumber -= 3;
+
+            SelectedArea[defaultNumber].SetActive(true);
         }
 
-        Vector3 SelectedArea_1Postion = DefaultArea.transform.position;
-        //Debug.Log(SelectedArea_1Postion);
-        //To-DO: Make it so that when you press a button it counts up words. So that you can change where you want to place it with pressing one button.
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            SelectedArea[defaultNumber].SetActive(false);
+            if (defaultNumber  >= 1)
+                defaultNumber -= 1;
 
-        Debug.Log(DefaultArea.activeInHierarchy);
+            SelectedArea[defaultNumber].SetActive(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            SelectedArea[defaultNumber].SetActive(false);
+            if (defaultNumber <= 7 )
+                defaultNumber += 1;
+
+            SelectedArea[defaultNumber].SetActive(true);
+        }
+ 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            DefaultArea.SetActive(false);
-            Debug.Log(DefaultArea.activeInHierarchy);
+            Vector3 SelectedArea_1Postion = SelectedArea[defaultNumber].transform.position;
+            SelectedArea[defaultNumber].SetActive(false);
             Instantiate(Token, (SelectedArea_1Postion + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
         }
     }
