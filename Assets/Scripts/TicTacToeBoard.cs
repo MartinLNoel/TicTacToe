@@ -61,69 +61,87 @@ public class TicTacToeBoard : MonoBehaviour
         gameManager = FindObjectOfType<GameManager>();
     }
 
-
-    public void UpdateTwoDBoard(GameObject currentToken, int index)
+    //Function starts with selecting which player token to use
+    //Function then translates the default number into 2Darray indexs
+    //Function calls CheckBoard
+    //Function places token or not
+    public bool UpdateTwoDBoard(GameObject currentToken, int indexPosition)
     {
         twoDToken = (currentToken == gameManager.PlayerOne) ? 'x' : 'o';
+        int rowIndex;
+        int columnIndex;
 
-        switch (index)
+        switch (indexPosition)
         {
             case 0:
-                twoDBoard[0, 0] = twoDToken;
+                rowIndex = 0;
+                columnIndex = 0;
                 break;
             case 1:
-                twoDBoard[0, 1] = twoDToken;
+                rowIndex = 0;
+                columnIndex = 1;
                 break;
             case 2:
-                twoDBoard[0, 2] = twoDToken;
+                rowIndex = 0;
+                columnIndex = 2;
                 break;
             case 3:
-                twoDBoard[1, 0] = twoDToken;
+                rowIndex = 1;
+                columnIndex = 0;
                 break;
             case 4:
-                twoDBoard[1, 1] = twoDToken;
+                rowIndex = 1;
+                columnIndex = 1;
                 break;
             case 5:
-                twoDBoard[1, 2] = twoDToken;
+                rowIndex = 1;
+                columnIndex = 2;
                 break;
             case 6:
-                twoDBoard[2, 0] = twoDToken;
+                rowIndex = 2;
+                columnIndex = 0;
                 break;
             case 7:
-                twoDBoard[2, 1] = twoDToken;
+                rowIndex = 2;
+                columnIndex = 1;
                 break;
             case 8:
-                twoDBoard[2, 2] = twoDToken;
+                rowIndex = 2;
+                columnIndex = 2;
+                break;
+            default:
+                rowIndex = 0;
+                columnIndex = 0;
+                Debug.LogError("Out of Range in 2D Board");
                 break;
         }
-        //CheckBoards();
+
+        bool result = CheckSlot(twoDBoard[rowIndex, columnIndex]);
+
+        if (result == true)
+        {
+            twoDBoard[rowIndex, columnIndex] = twoDToken;
+            return true;
+        }
+        else
+            return false;
     }
 
 
+    //A function that debugs the 2Dboard
     public void CheckBoards()
-    { //GameObject[] threeDBoard,
-        /*
-        int rows = twoDBoard.GetLength(0);
-        int cols = twoDBoard.GetLength(1);
+    { 
+        Debug.Log(twoDBoard[0, 0] + "|" + twoDBoard[0, 1] + "|" + twoDBoard[0, 2]);
+        Debug.Log(twoDBoard[1, 0] + "|" + twoDBoard[1, 1] + "|" + twoDBoard[1, 2]);
+        Debug.Log(twoDBoard[2, 0] + "|" + twoDBoard[2, 1] + "|" + twoDBoard[2, 2]);
+        Debug.Log("------------------------");
+    }
 
-        // Iterate through the elements of the 2D array
-        for (int i = 0; i < rows; i++)
-        {
-            for (int j = 0; j < cols; j++)
-            {
-                Debug.Log(twoDBoard[i, j] + "");
-            }
-            Debug.Log("\n");
-        }*/
-        Debug.Log("0: " + twoDBoard[0, 0]);
-        Debug.Log("1: " + twoDBoard[0, 1]);
-        Debug.Log("2: " + twoDBoard[0, 2]);
-        Debug.Log("3: " + twoDBoard[1, 0]);
-        Debug.Log("4: " + twoDBoard[1, 1]);
-        Debug.Log("5: " + twoDBoard[1, 2]);
-        Debug.Log("6: " + twoDBoard[2, 0]);
-        Debug.Log("7: " + twoDBoard[2, 1]);
-        Debug.Log("8: " + twoDBoard[2, 2]);
+    //A function that checks if a slot is empty or not
+    public bool CheckSlot(char position)
+    {
+        bool result = (position != '?') ? false : true;
+        return result;
     }
 
 

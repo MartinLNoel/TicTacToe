@@ -72,12 +72,19 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 SelectedArea_1Postion = Level_1_SelectedArea[defaultNumber].transform.position;
             Level_1_SelectedArea[defaultNumber].SetActive(false);
-            Instantiate(Token, (SelectedArea_1Postion + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
 
-            ticTacToeBoard.UpdateTwoDBoard(Token, defaultNumber);
-            ticTacToeBoard.CheckBoards();
+            if (ticTacToeBoard.UpdateTwoDBoard(Token, defaultNumber) == true)
+            {
+                Instantiate(Token, (SelectedArea_1Postion + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
+                //ticTacToeBoard.CheckBoards();
+                return true;
+            }
+            else
+            {
+                Debug.LogWarning("Error: something already there");
+                return false;
+            }
 
-            return true;
         }
         return false;
     }
