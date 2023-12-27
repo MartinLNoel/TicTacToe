@@ -6,9 +6,7 @@ public class ChangePlayer : MonoBehaviour
 {
     public GameObject Switcher(GameObject currentToken, GameObject playerX, GameObject playerO)
     {
-        GameObject newToken = currentToken;
-
-        newToken = (newToken == playerX) ? playerO : playerX;
+        GameObject newToken = (currentToken == playerX) ? playerO : playerX;
 
         return newToken;
     }

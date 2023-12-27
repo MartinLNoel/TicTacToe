@@ -1,13 +1,13 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Net;
 using UnityEngine;
+
+//A script that aims to return a new vector3 position.
+
+//To-Do: divide visuals into another script
 
 public class PlayerController : MonoBehaviour
 {
     GameObject[] Level_1_SelectedArea;
-    GameObject[] Level_2_SelectedArea;
+    //GameObject[] Level_2_SelectedArea;
     private int defaultNumber = 4;
     private TicTacToeBoard ticTacToeBoard;
 
@@ -19,14 +19,16 @@ public class PlayerController : MonoBehaviour
     public void GetRequiredInformation (GameObject[] selectedArea1, GameObject[] selectedArea2)
     {
         Level_1_SelectedArea = selectedArea1;
-        Level_2_SelectedArea = selectedArea2;
-        //Token = StartToken;
+        //Level_2_SelectedArea = selectedArea2;
     }
 
-
-    public bool Controls(GameObject Token)
+    //A function that records the player movement inside int defaultNumber and returns Vector3 SelectedArea_1Postion. 
+    //SelectedArea_1Postion only changes when spacebar is pressed.
+    public Vector3 Controls()
     {
         Level_1_SelectedArea[defaultNumber].SetActive(true);
+
+        Vector3 SelectedArea_1Postion = new(100f, 100f, 100f);
 
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -70,22 +72,10 @@ public class PlayerController : MonoBehaviour
  
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Vector3 SelectedArea_1Postion = Level_1_SelectedArea[defaultNumber].transform.position;
+            SelectedArea_1Postion = Level_1_SelectedArea[defaultNumber].transform.position;
             Level_1_SelectedArea[defaultNumber].SetActive(false);
-
-            if (ticTacToeBoard.UpdateTwoDBoard(Token, defaultNumber) == true)
-            {
-                Instantiate(Token, (SelectedArea_1Postion + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
-                //ticTacToeBoard.CheckBoards();
-                return true;
-            }
-            else
-            {
-                Debug.LogWarning("Error: something already there");
-                return false;
-            }
-
+            ticTacToeBoard.indexPosition = defaultNumber;
         }
-        return false;
+        return SelectedArea_1Postion;
     }
 }
