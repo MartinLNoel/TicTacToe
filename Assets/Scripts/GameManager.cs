@@ -1,17 +1,19 @@
 using UnityEngine;
 
+//A script that is the gameflow of Tic Tac Toe
 public class GameManager : MonoBehaviour
 {
     public GameObject PlayerOne;
     public GameObject PlayerTwo;
     private GameObject currentToken;
-    private TicTacToeBoard ticTacToeBoard;
 
     public GameObject[] Level_1_SelectedArea;
     public GameObject[] Level_2_SelectedArea;
 
     private PlayerController playerController;
     private ChangePlayer changePlayer;
+    private TicTacToeBoard ticTacToeBoard;
+    private CheckWinner checkWinner;
 
 
 
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
 
         changePlayer = FindAnyObjectByType <ChangePlayer>();
         ticTacToeBoard = FindObjectOfType<TicTacToeBoard>();
+        checkWinner = FindObjectOfType<CheckWinner>();
 
 
     }
@@ -31,7 +34,9 @@ public class GameManager : MonoBehaviour
     //Starts by calling playerController.Controls to give a Vector3
     //Checks if the Vector3 isn't the default number (100f, 100f, 100f) 
     //If it isn't, it checks to update the 2D board
-    //If it updates, it instantiates the gameobject and changes player
+    //If it updates, it instantiates the gameobject
+    //It checks if there is a winner
+    //If there isn't, change the player
     private void Update()
     {
         Vector3 playerPositon = playerController.Controls();
@@ -41,7 +46,10 @@ public class GameManager : MonoBehaviour
             if (ticTacToeBoard.UpdateTwoDBoard(currentToken) == true)
             {
                 Instantiate(currentToken, (playerPositon + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
-
+                if (checkWinner.CheckingWinner(currentToken) == true)
+                {
+                    Debug.Log("WINNER");
+                }
                 currentToken = changePlayer.Switcher(currentToken, PlayerOne, PlayerTwo);
             }
         }

@@ -80,7 +80,7 @@ public class TicTacToeBoard : MonoBehaviour
         if (result == true)
         {
             twoDBoard[rowIndex, columnIndex] = twoDToken;
-            CheckBoards();
+            //CheckBoards();
             return true;
         }
         else
