@@ -1,4 +1,6 @@
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //A script that is the gameflow of Tic Tac Toe
 public class GameManager : MonoBehaviour
@@ -15,10 +17,13 @@ public class GameManager : MonoBehaviour
     private TicTacToeBoard ticTacToeBoard;
     private CheckWinner checkWinner;
 
+    [SerializeField]
+    private SceneAsset sceneToLoad;
 
 
 
-     private void Start()
+
+    private void Start()
     {
         currentToken = PlayerOne;
         playerController = FindObjectOfType<PlayerController>();
@@ -48,6 +53,13 @@ public class GameManager : MonoBehaviour
                 Instantiate(currentToken, (playerPositon + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
                 if (checkWinner.CheckingWinner(currentToken) == true)
                 {
+
+                    //new WaitForSeconds(5.0f);
+
+                    Invoke(sceneToLoad.name, 5f);
+                    
+                    SceneManager.LoadScene(sceneToLoad.name);
+                    
                     Debug.Log("WINNER");
                 }
                 currentToken = changePlayer.Switcher(currentToken, PlayerOne, PlayerTwo);
