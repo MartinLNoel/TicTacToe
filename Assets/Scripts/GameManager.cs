@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEditor;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,11 +13,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] Level_1_SelectedArea;
     public GameObject[] Level_2_SelectedArea;
+    public TextMeshProUGUI textMeshProUGUI;
 
     private PlayerController playerController;
     private ChangePlayer changePlayer;
     private TicTacToeBoard ticTacToeBoard;
     private CheckWinner checkWinner;
+    private GameOverManager gameOverManager;
 
     [SerializeField]
     private SceneAsset sceneToLoad;
@@ -54,14 +58,28 @@ public class GameManager : MonoBehaviour
                 if (checkWinner.CheckingWinner(currentToken) == true)
                 {
 
-                    //new WaitForSeconds(5.0f);
+                    //Need coroutines to make it wait for the token to land with the winning placement;
 
                     Invoke(sceneToLoad.name, 5f);
-                    
+
                     SceneManager.LoadScene(sceneToLoad.name);
-                    
+
                     Debug.Log("WINNER");
                 }
+                else
+                {
+                    if (ticTacToeBoard.CheckEmptyForSlots() == false)
+                    {
+                        //gameOverManager.newText = "Draw";
+                        gameOverManager.ChangeGameOverTitle("DRAW");
+
+                        Invoke(sceneToLoad.name, 5f);
+
+                        SceneManager.LoadScene(sceneToLoad.name);
+
+                        Debug.Log("DRAW");
+                    }
+                }       
                 currentToken = changePlayer.Switcher(currentToken, PlayerOne, PlayerTwo);
             }
         }

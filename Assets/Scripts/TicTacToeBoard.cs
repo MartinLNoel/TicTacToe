@@ -89,7 +89,7 @@ public class TicTacToeBoard : MonoBehaviour
 
 
     //A function that debugs the 2Dboard
-    public void CheckBoards()
+    public void CheckBoard()
     { 
         Debug.Log(twoDBoard[0, 0] + "|" + twoDBoard[0, 1] + "|" + twoDBoard[0, 2]);
         Debug.Log(twoDBoard[1, 0] + "|" + twoDBoard[1, 1] + "|" + twoDBoard[1, 2]);
@@ -103,6 +103,17 @@ public class TicTacToeBoard : MonoBehaviour
         bool result = (position == '?') ? true: false;
         return result;
     }
-
+    public bool CheckEmptyForSlots()
+    {
+        for (int rowIndex = 0; rowIndex <= 2; rowIndex++)
+        {
+            for (int columnIndex = 0; columnIndex <= 2; columnIndex++)
+            {
+                if (twoDBoard[rowIndex, columnIndex] == '?')
+                    return true;
+            }
+        }
+        return false;
+    }
 
 }

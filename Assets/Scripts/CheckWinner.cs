@@ -9,7 +9,7 @@ public class CheckWinner : MonoBehaviour
     private TicTacToeBoard ticTacToeBoard;
     private GameManager gameManager;
 
-    char twoDToken;
+    private char twoDToken;
 
     private void Start()
     {
@@ -22,9 +22,10 @@ public class CheckWinner : MonoBehaviour
     {
         twoDToken = (currentToken == gameManager.PlayerOne) ? 'x' : 'o';
 
+
         if (CheckRows() || CheckColumn() || CheckDiagonal())
             return true;
-
+        
         return false;
     }
 
@@ -37,7 +38,7 @@ public class CheckWinner : MonoBehaviour
         else if (ticTacToeBoard.twoDBoard[1, 0] == twoDToken && ticTacToeBoard.twoDBoard[1, 1] == twoDToken && ticTacToeBoard.twoDBoard[1, 2] == twoDToken)
             return true;
         else if (ticTacToeBoard.twoDBoard[2, 0] == twoDToken && ticTacToeBoard.twoDBoard[2, 1] == twoDToken && ticTacToeBoard.twoDBoard[2, 2] == twoDToken)
-            return true;
+            return true;    
         return false;
     }
 
@@ -48,7 +49,7 @@ public class CheckWinner : MonoBehaviour
             return true;
         else if (ticTacToeBoard.twoDBoard[0, 1] == twoDToken && ticTacToeBoard.twoDBoard[1, 1] == twoDToken && ticTacToeBoard.twoDBoard[2, 1] == twoDToken)
             return true;
-        else if (ticTacToeBoard.twoDBoard[0, 2] == twoDToken && ticTacToeBoard.twoDBoard[2, 2] == twoDToken && ticTacToeBoard.twoDBoard[2, 2] == twoDToken)
+        else if (ticTacToeBoard.twoDBoard[0, 2] == twoDToken && ticTacToeBoard.twoDBoard[1, 2] == twoDToken && ticTacToeBoard.twoDBoard[2, 2] == twoDToken)
             return true;
         return false;
     }
