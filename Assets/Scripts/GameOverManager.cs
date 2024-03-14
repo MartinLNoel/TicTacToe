@@ -5,17 +5,21 @@ using UnityEngine;
 
 public class GameOverManager : MonoBehaviour
 {
+    private DataStorage dataStorage;
+
     public TextMeshProUGUI textMeshProUGUI;
-    public string newText = "Null";
+
+
 
     private void Start()
     {
+        dataStorage = FindObjectOfType<DataStorage>();
+        Debug.Log($"after load2: {dataStorage.DisplayGameOverTitle()}");
 
-        textMeshProUGUI.text = newText;
-    }
+        //string resultText = dataStorage.DisplayGameOverTitle();
+        Debug.Log($"After variable: {dataStorage.DisplayGameOverTitle()}");
+        //Debug.Log($"variable: {resultText}");
 
-    public void ChangeGameOverTitle(string newTitle)
-    {
-        newText = newTitle;
+        textMeshProUGUI.text = DataStorage.Instance.DisplayGameOverTitle();
     }
 }
