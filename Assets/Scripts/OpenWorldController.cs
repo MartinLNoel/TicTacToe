@@ -3,7 +3,7 @@ using UnityEngine;
 public class OpenWorldController : MonoBehaviour
 {
     public float moveSpeed = 10f;
-    //public float rotationSpeed = 100f;
+    //public float rotationSpeed = 10f;
 
     private Rigidbody rb;
 
@@ -25,7 +25,7 @@ public class OpenWorldController : MonoBehaviour
         if (movement != Vector3.zero)
         {
             //Quaternion newRotation = Quaternion.LookRotation(movement);
-           // rb.rotation = Quaternion.Slerp(rb.rotation, newRotation, rotationSpeed * Time.deltaTime);
+            //rb.rotation = Quaternion.Slerp(rb.rotation, newRotation, rotationSpeed * Time.deltaTime);
         }
     }
 }
