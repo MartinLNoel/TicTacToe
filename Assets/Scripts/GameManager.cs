@@ -63,27 +63,28 @@ public class GameManager : MonoBehaviour
                 Instantiate(currentToken, (playerPositon + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
                 if (checkWinner.CheckingWinner(currentToken) == true)
                 {
+                    char twoDToken = (currentToken == PlayerOne) ? 'X' : 'O';
                     //Need coroutines to make it wait for the token to land with the winning placement;
                     //Invoke(sceneToLoad.name, 5f);
                     //dataStorage.ChangeGameOverTitle("Winner!");
-                    DataStorage.Instance.ChangeGameOverTitle("Winner!");
+                    DataStorage.Instance.ChangeGameOverTitle($"Winner is {twoDToken} !");
 
-                    Debug.Log($"Before load: {dataStorage.DisplayGameOverTitle()}");
+                    //Debug.Log($"Before load: {dataStorage.DisplayGameOverTitle()}");
 
                     SceneManager.LoadScene(sceneToLoad.name);
 
 
-                    Debug.Log($"After load1: {dataStorage.DisplayGameOverTitle()}");
+                    //Debug.Log($"After load1: {dataStorage.DisplayGameOverTitle()}");
                 }
                 else
                 {
-                    if (ticTacToeBoard.CheckEmptyForSlots() == false)
+                    if (ticTacToeBoard.CheckEmptySlots() == false)
                     {
 
                         dataStorage.ChangeGameOverTitle("Draw!");
                         SceneManager.LoadScene(sceneToLoad.name);
 
-                        Debug.Log("DRAW");
+                        //Debug.Log("DRAW");
                     }
                 }       
                 currentToken = changePlayer.Switcher(currentToken, PlayerOne, PlayerTwo);
