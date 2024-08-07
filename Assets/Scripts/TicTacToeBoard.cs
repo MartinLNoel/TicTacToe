@@ -105,7 +105,7 @@ public class TicTacToeBoard : MonoBehaviour
     }
 
     //A function that checks if there are any empty slots.
-    public bool CheckEmptyForSlots()
+    public bool CheckEmptySlots()
     {
         for (int rowIndex = 0; rowIndex <= 2; rowIndex++)
         {

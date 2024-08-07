@@ -13,12 +13,6 @@ public class InteractNotification : MonoBehaviour
         openWorldManager = FindObjectOfType<OpenWorldManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         Trigger.SetActive(true);
