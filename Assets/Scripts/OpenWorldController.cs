@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class OpenWorldController : MonoBehaviour
 {
-    public float moveSpeed = 10f;
+    public float walkSpeed = 5f;
+    public float sprintSpeed = 15;
     public float rotationSpeed = 10f;
-
+    public float moveSpeed;
     private Rigidbody rb;
+    private Animator animator;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -21,20 +25,21 @@ public class OpenWorldController : MonoBehaviour
 
         Vector3 movement = new(moveHorizontal, moveUp, moveVertical);
 
+        if (Input.GetKey(KeyCode.LeftShift))
+            moveSpeed = sprintSpeed;
+        else
+            moveSpeed = walkSpeed;
 
-        /*do
-        {
-            //moveSpeed = 15f;
-            Debug.Log($"1{moveSpeed}");
+        //Debug.Log($"I'm at speed: {moveSpeed}");
 
-        } while (Input.GetKeyDown(KeyCode.LeftShift));
-        */
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-            moveSpeed = 15f;
-
-        Debug.Log(moveSpeed);
-
+        // Set the velocity of the Rigidbody
         rb.velocity = movement * moveSpeed;
+
+        // Set the animator Speed parameter based on current velocity magnitude
+        animator.SetFloat("Speed", rb.velocity.magnitude);
+
+        // Output debug information to ensure correct speed setting
+        Debug.Log($"Velocity Magnitude: {rb.velocity.magnitude}, Speed Parameter: {animator.GetFloat("Speed")}");
 
         // Rotation
         if (movement != Vector3.zero)
