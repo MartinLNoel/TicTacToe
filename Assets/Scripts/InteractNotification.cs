@@ -26,7 +26,6 @@ public class InteractNotification : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         openWorldManager.isThereNotification = true;
-        Debug.Log($"I am inside you");
     }
 
 
