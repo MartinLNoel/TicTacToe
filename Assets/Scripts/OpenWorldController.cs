@@ -28,12 +28,12 @@ public class OpenWorldController : MonoBehaviour
         Vector3 movement = new(moveHorizontal, 0f, moveVertical);
 
         //Animation for jump(glide)
-        if (Input.GetKeyDown(KeyCode.Space) && animatorJump == false)
+        if (Input.GetKeyDown(KeyCode.V) && animatorJump == false)
         {
             animator.SetBool("Jump", true);
             animatorJump = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && animatorJump == true)
+        else if (Input.GetKeyDown(KeyCode.V) && animatorJump == true)
         {
             animator.SetBool("Jump", false);
             animatorJump = false;

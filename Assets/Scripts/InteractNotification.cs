@@ -21,6 +21,7 @@ public class InteractNotification : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         Trigger.SetActive(false);
+        openWorldManager.isThereNotification = false;
     }
 
     private void OnTriggerStay(Collider other)
