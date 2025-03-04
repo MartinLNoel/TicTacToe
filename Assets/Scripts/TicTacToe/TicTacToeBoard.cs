@@ -118,4 +118,27 @@ public class TicTacToeBoard : MonoBehaviour
         return false;
     }
 
+    //A function that checks if players have placed all their tokens
+    public bool CheckAmountOfTokens()
+    {
+        int xCount = 0;
+        int oCount = 0;
+        int maximumTokens = 3;
+
+        for (int rowIndex = 0; rowIndex <= 2; rowIndex++)
+        {
+            for (int columnIndex = 0; columnIndex <= 2; columnIndex++)
+            {
+                if (twoDBoard[rowIndex, columnIndex] == 'x')
+                    xCount += 1;
+                if (twoDBoard[rowIndex, columnIndex] == 'o')
+                    oCount += 1;
+            }
+        }
+        if (xCount == maximumTokens || oCount == maximumTokens)
+            return true;
+        else
+            return false;
+    }
+
 }

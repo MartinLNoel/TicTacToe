@@ -68,25 +68,24 @@ public class GameManager : MonoBehaviour
                     char twoDToken = (currentToken == PlayerOne) ? 'X' : 'O';
                     //Need coroutines to make it wait for the token to land with the winning placement;
                     //Invoke(sceneToLoad.name, 5f);
-                    //dataStorage.ChangeGameOverTitle("Winner!");
+
                     DataStorage.Instance.ChangeGameOverTitle($"Winner is {twoDToken} !");
 
-                    //Debug.Log($"Before load: {dataStorage.DisplayGameOverTitle()}");
-
                     SceneManager.LoadScene(sceneToLoad.name);
-
-
-                    //Debug.Log($"After load1: {dataStorage.DisplayGameOverTitle()}");
                 }
                 else
                 {
-                    if (ticTacToeBoard.CheckEmptySlots() == false)
+                    if (ticTacToeBoard.CheckAmountOfTokens() == true)
                     {
-
-                        dataStorage.ChangeGameOverTitle("Draw!");
-                        SceneManager.LoadScene(sceneToLoad.name);
-
-                        //Debug.Log("DRAW");
+                        if (maximumTokensReaches == true)
+                        {
+                            //new function to force players to select their own tokens
+                            Debug.Log($"{currentToken}: Select Own Tokens"); //<-- last thing I did. Issue is that the currentToken is the wrong one.
+                        }
+                        /*DataStorage.Instance.ChangeGameOverTitle("Draw!");
+                        SceneManager.LoadScene(sceneToLoad.name);*/
+                        maximumTokensReaches = true;
+                        Debug.Log($"{currentToken}:Amount Reached");
                     }
                 }       
                 currentToken = changePlayer.Switcher(currentToken, PlayerOne, PlayerTwo);
