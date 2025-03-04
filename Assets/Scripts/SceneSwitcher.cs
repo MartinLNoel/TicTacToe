@@ -13,8 +13,7 @@ public class SceneSwitcher : MonoBehaviour
     private void Start()
     {
         // Add a click event to the UI button
-        Button button = GetComponent<Button>();
-        if (button != null)
+        if (TryGetComponent<Button>(out var button))
         {
             button.onClick.AddListener(LoadAssignedScene);
         }

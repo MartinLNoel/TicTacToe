@@ -14,10 +14,10 @@ public class GameOverManager : MonoBehaviour
     private void Start()
     {
         dataStorage = FindObjectOfType<DataStorage>();
-        Debug.Log($"after load2: {dataStorage.DisplayGameOverTitle()}");
+        //Debug.Log($"after load2: {dataStorage.DisplayGameOverTitle()}");
 
         //string resultText = dataStorage.DisplayGameOverTitle();
-        Debug.Log($"After variable: {dataStorage.DisplayGameOverTitle()}");
+        //Debug.Log($"After variable: {dataStorage.DisplayGameOverTitle()}");
         //Debug.Log($"variable: {resultText}");
 
         textMeshProUGUI.text = DataStorage.Instance.DisplayGameOverTitle();

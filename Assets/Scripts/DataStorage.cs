@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+// A script that saves the winner from GameManager to GameOverManager.
 public class DataStorage : MonoBehaviour
 {
     string resultText;
