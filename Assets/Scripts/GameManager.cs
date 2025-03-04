@@ -19,6 +19,9 @@ public class GameManager : MonoBehaviour
     private TicTacToeBoard ticTacToeBoard;
     private CheckWinner checkWinner;
     private DataStorage dataStorage;
+    
+    private bool maximumTokensReaches = false;
+
 
 
     [SerializeField]
@@ -42,8 +45,6 @@ public class GameManager : MonoBehaviour
         ticTacToeBoard = FindObjectOfType<TicTacToeBoard>();
         checkWinner = FindObjectOfType<CheckWinner>();
         dataStorage = FindObjectOfType<DataStorage>();
-
-
     }
 
     //Starts by calling playerController.Controls to give a Vector3
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         Vector3 playerPositon = playerController.Controls();
+
 
         if (playerPositon != new Vector3(100f, 100f, 100f))
         {
