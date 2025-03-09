@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEditor;
 
 //A script used to record the player's game using a 2D Array.
 //Extra info => indexPosition is obtained from PlayerController script upon the player pressing space. This works because UpdateTwoDBoard is only called after spacebar.
 
 public class TicTacToeBoard : MonoBehaviour
 {
+    private TicTacToeBoard ticTacToeBoard;
     private GameManager gameManager;
     private char twoDToken;
     public int indexPosition;
@@ -16,16 +18,18 @@ public class TicTacToeBoard : MonoBehaviour
         { '?', '?', '?' }
     };
 
+
     private void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
+        ticTacToeBoard = FindObjectOfType<TicTacToeBoard>();
         
     }
 
     //A Function that converts the indexPosition into 2D Array indexs (2ADAI)
     //Then using the 2DAI, checks if that slot is empty
     //If empty, the 2D board is updated using the 2DAI
-    public bool UpdateTwoDBoard(GameObject currentToken)
+    public int UpdateTwoDBoard(GameObject currentToken)
     {
         twoDToken = (currentToken == gameManager.PlayerOne) ? 'x' : 'o';
         int rowIndex;
@@ -75,16 +79,28 @@ public class TicTacToeBoard : MonoBehaviour
                 Debug.LogError("Out of Range in 2D Board");
                 break;
         }
-        bool result = CheckSlot(twoDBoard[rowIndex, columnIndex]);
-
-        if (result == true)
+        int checkSlotResults = CheckSlot(twoDBoard[rowIndex, columnIndex]);
+       
+        switch (checkSlotResults)
         {
-            twoDBoard[rowIndex, columnIndex] = twoDToken;
-            //CheckBoards();
-            return true;
+            // Place is free and players didn't reach the maximum amount of tokens
+            case 0:
+                twoDBoard[rowIndex, columnIndex] = twoDToken;
+               // Debug.Log($"case 0: ");
+               // CheckBoard();
+                return 0;
+            // Place is not free and players didn't reach the maximum amount of tokens
+            default:
+               // Debug.Log($"default: ");
+               // CheckBoard();
+                return 1;
+            // Players have reached the maximum amount of tokens and they have chosen their own token
+            case 2:
+                twoDBoard[rowIndex, columnIndex] = '?';
+                // Debug.Log($"case 2: ");
+                // CheckBoard();
+                return 2;
         }
-        else
-            return false;
     }
 
 
@@ -98,11 +114,24 @@ public class TicTacToeBoard : MonoBehaviour
     }
 
     //A function that checks if a slot is empty or not
-    public bool CheckSlot(char position)
+    public int CheckSlot(char position)
     {
-        bool result = (position == '?') ? true: false;
-        return result;
-    }
+        if (CheckoAmountOfTokens() == true && CheckxAmountOfTokens() == true)
+        {
+            // Maximum amount of tokens reached and the player has chosen their own token
+            if (position == twoDToken)
+                return 2;
+            // Maximum amount of tokens reached and the player has not chosen their own token
+            else
+                return 1;
+        }
+        // Place is free and players didn't reach the maximum amount of tokens
+        else if (position == '?')
+            return 0;
+        // Place is not free and players didn't reach the maximum amount of tokens
+        else
+            return 1;
+    }   
 
     //A function that checks if there are any empty slots.
     public bool CheckEmptySlots()
@@ -118,11 +147,10 @@ public class TicTacToeBoard : MonoBehaviour
         return false;
     }
 
-    //A function that checks if players have placed all their tokens
-    public bool CheckAmountOfTokens()
+    //A function that checks if player x has reached the maximum amount of tokens
+    public bool CheckxAmountOfTokens()
     {
         int xCount = 0;
-        int oCount = 0;
         int maximumTokens = 3;
 
         for (int rowIndex = 0; rowIndex <= 2; rowIndex++)
@@ -131,14 +159,31 @@ public class TicTacToeBoard : MonoBehaviour
             {
                 if (twoDBoard[rowIndex, columnIndex] == 'x')
                     xCount += 1;
-                if (twoDBoard[rowIndex, columnIndex] == 'o')
-                    oCount += 1;
             }
         }
-        if (xCount == maximumTokens || oCount == maximumTokens)
+        if (xCount >= maximumTokens)
             return true;
         else
             return false;
     }
 
+    //A function that checks if player o has reached the maximum amount of tokens
+    public bool CheckoAmountOfTokens()
+    {
+        int oCount = 0;
+        int maximumTokens = 3;
+
+        for (int rowIndex = 0; rowIndex <= 2; rowIndex++)
+        {
+            for (int columnIndex = 0; columnIndex <= 2; columnIndex++)
+            {
+                if (twoDBoard[rowIndex, columnIndex] == 'o')
+                    oCount += 1;
+            }
+        }
+        if (oCount >= maximumTokens)
+            return true;
+        else
+            return false;
+    }
 }
