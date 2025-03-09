@@ -1009,6 +1009,7 @@ GameObject:
   - component: {fileID: 1341015749}
   - component: {fileID: 1341015748}
   - component: {fileID: 1341015751}
+  - component: {fileID: 1341015752}
   m_Layer: 0
   m_Name: Levels_SelectedArea
   m_TagString: Untagged
@@ -1116,6 +1117,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 194e63fad7aad74409966b3e938b4eff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1341015752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341015743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb9336fef947584da44cdfde1942cd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1371783189 stripped

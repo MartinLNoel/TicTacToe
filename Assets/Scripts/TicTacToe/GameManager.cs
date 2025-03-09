@@ -1,3 +1,5 @@
+using Microsoft.Win32.SafeHandles;
+using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -19,8 +21,7 @@ public class GameManager : MonoBehaviour
     private TicTacToeBoard ticTacToeBoard;
     private CheckWinner checkWinner;
     private DataStorage dataStorage;
-    
-    private bool maximumTokensReaches = false;
+    private TokenClones tokenClones;
 
 
 
@@ -45,51 +46,53 @@ public class GameManager : MonoBehaviour
         ticTacToeBoard = FindObjectOfType<TicTacToeBoard>();
         checkWinner = FindObjectOfType<CheckWinner>();
         dataStorage = FindObjectOfType<DataStorage>();
+        tokenClones = FindObjectOfType<TokenClones>();
     }
 
-    //Starts by calling playerController.Controls to give a Vector3
-    //Checks if the Vector3 isn't the default number (100f, 100f, 100f) 
-    //If it isn't, it checks to update the 2D board
-    //If it updates, it instantiates the gameobject
-    //It checks if there is a winner
-    //If there isn't, change the player
+    // Starts by calling playerController.Controls to give a Vector3
+    // Checks if the Vector3 isn't the default number (100f, 100f, 100f) 
+    // If it isn't, it checks to update the 2D board
+    // If it updates, it instantiates the gameobject
+    // It checks if there is a winner
+    // If there isn't, change the player
     private void Update()
     {
+        // due to Update() this function allows for movement
         Vector3 playerPositon = playerController.Controls();
 
 
         if (playerPositon != new Vector3(100f, 100f, 100f))
         {
-            if (ticTacToeBoard.UpdateTwoDBoard(currentToken) == true)
+            Debug.Log($"CurrentToken: {currentToken}");
+            switch (ticTacToeBoard.UpdateTwoDBoard(currentToken))
             {
-                Instantiate(currentToken, (playerPositon + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
-                if (checkWinner.CheckingWinner(currentToken) == true)
-                {
-                    char twoDToken = (currentToken == PlayerOne) ? 'X' : 'O';
-                    //Need coroutines to make it wait for the token to land with the winning placement;
-                    //Invoke(sceneToLoad.name, 5f);
-
-                    DataStorage.Instance.ChangeGameOverTitle($"Winner is {twoDToken} !");
-
-                    SceneManager.LoadScene(sceneToLoad.name);
-                }
-                else
-                {
-                    if (ticTacToeBoard.CheckAmountOfTokens() == true)
+                // Place is free and players didn't reach the maximum amount of tokens
+                case 0:
+                    tokenClones.SpawnClone(playerPositon, currentToken);
+                    // Instantiate(currentToken, (playerPositon + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
+                    
+                    if (checkWinner.CheckingWinner(currentToken) == true)
                     {
-                        if (maximumTokensReaches == true)
-                        {
-                            //new function to force players to select their own tokens
-                            Debug.Log($"{currentToken}: Select Own Tokens"); //<-- last thing I did. Issue is that the currentToken is the wrong one.
-                        }
-                        /*DataStorage.Instance.ChangeGameOverTitle("Draw!");
-                        SceneManager.LoadScene(sceneToLoad.name);*/
-                        maximumTokensReaches = true;
-                        Debug.Log($"{currentToken}:Amount Reached");
+                        char twoDToken = (currentToken == PlayerOne) ? 'X' : 'O';
+
+                        DataStorage.Instance.ChangeGameOverTitle($"Winner is {twoDToken} !");
+
+                        SceneManager.LoadScene(sceneToLoad.name);
                     }
-                }       
-                currentToken = changePlayer.Switcher(currentToken, PlayerOne, PlayerTwo);
+                    currentToken = changePlayer.Switcher(currentToken, PlayerOne, PlayerTwo);
+                    break;
+                // Place is not free and players didn't reach the maximum amount of tokens
+                case 1:
+                    break;
+                // Players have reached the maximum amount of tokens and they have chosen their own token
+                case 2:
+                    Debug.Log("Max amount of tokens reached");
+                    tokenClones.DeleteClone(playerPositon);
+                    break;
+                default:
+                    break;
             }
+            Debug.Log($"NextToken: {currentToken}");            
         }
     }
 }
