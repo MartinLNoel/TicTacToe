@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 // A script that aims to return a new vector3 position.
@@ -27,11 +26,11 @@ public class PlayerController : MonoBehaviour
 
     // A function that records the player movement inside int defaultNumber and returns Vector3 SelectedArea_1Postion. 
     // SelectedArea_1Postion only changes when spacebar is pressed.
-    public Vector3 Controls()
+    public UnityEngine.Vector3 Controls()
     {
         Level_1_SelectedArea[defaultNumber].SetActive(true);
 
-        Vector3 SelectedArea_1Postion = new(100f, 100f, 100f);
+        UnityEngine.Vector3 SelectedArea_1Postion = new(100f, 100f, 100f);
 
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {

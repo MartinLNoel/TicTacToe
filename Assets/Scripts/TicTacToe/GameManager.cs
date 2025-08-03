@@ -1,5 +1,3 @@
-using Microsoft.Win32.SafeHandles;
-using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     public GameObject[] Level_1_SelectedArea;
     public GameObject[] Level_2_SelectedArea;
-    public TextMeshProUGUI textMeshProUGUI;
 
     private PlayerController playerController;
     private ChangePlayer changePlayer;
@@ -58,12 +55,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         // due to Update() this function allows for movement
-        Vector3 playerPositon = playerController.Controls();
+        UnityEngine.Vector3 playerPositon = playerController.Controls();
 
 
         if (playerPositon != new Vector3(100f, 100f, 100f))
         {
-            Debug.Log($"CurrentToken: {currentToken}");
             switch (ticTacToeBoard.UpdateTwoDBoard(currentToken))
             {
                 // Place is free and players didn't reach the maximum amount of tokens
@@ -86,13 +82,11 @@ public class GameManager : MonoBehaviour
                     break;
                 // Players have reached the maximum amount of tokens and they have chosen their own token
                 case 2:
-                    Debug.Log("Max amount of tokens reached");
                     tokenClones.DeleteClone(playerPositon);
                     break;
                 default:
                     break;
             }
-            Debug.Log($"NextToken: {currentToken}");            
         }
     }
 }
