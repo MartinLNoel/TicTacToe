@@ -7,7 +7,7 @@ using UnityEditor;
 public class TicTacToeBoard : MonoBehaviour
 {
     private TicTacToeBoard ticTacToeBoard;
-    private GameManager gameManager;
+    private GameManager_Classic gameManager;
     private char twoDToken;
     public int indexPosition;
 
@@ -21,7 +21,7 @@ public class TicTacToeBoard : MonoBehaviour
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindObjectOfType<GameManager_Classic>();
         ticTacToeBoard = FindObjectOfType<TicTacToeBoard>();
         
     }

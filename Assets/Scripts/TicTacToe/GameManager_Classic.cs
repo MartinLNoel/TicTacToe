@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //A script that is the gameflow of Tic Tac Toe
-public class GameManager : MonoBehaviour
+public class GameManager_Classic : MonoBehaviour
 {
     public GameObject PlayerOne;
     public GameObject PlayerTwo;
@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     public GameObject[] Level_2_SelectedArea;
 
     private PlayerController playerController;
-    private ChangePlayer changePlayer;
     private TicTacToeBoard ticTacToeBoard;
     private CheckWinner checkWinner;
     private DataStorage dataStorage;
@@ -39,7 +38,6 @@ public class GameManager : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
         playerController.GetRequiredInformation(Level_1_SelectedArea, Level_2_SelectedArea);
 
-        changePlayer = FindAnyObjectByType <ChangePlayer>();
         ticTacToeBoard = FindObjectOfType<TicTacToeBoard>();
         checkWinner = FindObjectOfType<CheckWinner>();
         dataStorage = FindObjectOfType<DataStorage>();
@@ -57,7 +55,6 @@ public class GameManager : MonoBehaviour
         // due to Update() this function allows for movement
         UnityEngine.Vector3 playerPositon = playerController.Controls();
 
-
         if (playerPositon != new Vector3(100f, 100f, 100f))
         {
             switch (ticTacToeBoard.UpdateTwoDBoard(currentToken))
@@ -66,7 +63,7 @@ public class GameManager : MonoBehaviour
                 case 0:
                     tokenClones.SpawnClone(playerPositon, currentToken);
                     // Instantiate(currentToken, (playerPositon + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
-                    
+
                     if (checkWinner.CheckingWinner(currentToken) == true)
                     {
                         char twoDToken = (currentToken == PlayerOne) ? 'X' : 'O';
@@ -75,7 +72,7 @@ public class GameManager : MonoBehaviour
 
                         SceneManager.LoadScene(sceneToLoad.name);
                     }
-                    currentToken = changePlayer.Switcher(currentToken, PlayerOne, PlayerTwo);
+                    currentToken = (currentToken == PlayerOne) ? PlayerTwo : PlayerOne;
                     break;
                 // Place is not free and players didn't reach the maximum amount of tokens
                 case 1:

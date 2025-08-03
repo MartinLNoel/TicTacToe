@@ -7,14 +7,14 @@ public class CheckWinner : MonoBehaviour
 {
 
     private TicTacToeBoard ticTacToeBoard;
-    private GameManager gameManager;
+    private GameManager_Classic gameManager;
 
     private char twoDToken;
 
     private void Start()
     {
         ticTacToeBoard = FindObjectOfType<TicTacToeBoard>();
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindObjectOfType<GameManager_Classic>();
     }
 
     //A function that returns true if any three-of-a-kind is found on the 2D board
