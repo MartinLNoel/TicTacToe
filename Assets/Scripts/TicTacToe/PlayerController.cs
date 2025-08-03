@@ -1,15 +1,17 @@
 using UnityEngine;
 
-//A script that aims to return a new vector3 position.
+// A script that aims to return a new vector3 position.
 
-//To-Do: divide visuals into another script
+// To-Do: divide visuals into another script
 
 public class PlayerController : MonoBehaviour
 {
-    GameObject[] Level_1_SelectedArea;
-    //GameObject[] Level_2_SelectedArea;
-    private int defaultNumber = 4;
     private TicTacToeBoard ticTacToeBoard;
+
+    GameObject[] Level_1_SelectedArea;
+    // GameObject[] Level_2_SelectedArea;
+    
+    private int defaultNumber = 4;
 
     private void Start()
     {
@@ -19,16 +21,16 @@ public class PlayerController : MonoBehaviour
     public void GetRequiredInformation (GameObject[] selectedArea1, GameObject[] selectedArea2)
     {
         Level_1_SelectedArea = selectedArea1;
-        //Level_2_SelectedArea = selectedArea2;
+        // Level_2_SelectedArea = selectedArea2;
     }
 
-    //A function that records the player movement inside int defaultNumber and returns Vector3 SelectedArea_1Postion. 
-    //SelectedArea_1Postion only changes when spacebar is pressed.
-    public Vector3 Controls()
+    // A function that records the player movement inside int defaultNumber and returns Vector3 SelectedArea_1Postion. 
+    // SelectedArea_1Postion only changes when spacebar is pressed.
+    public UnityEngine.Vector3 Controls()
     {
         Level_1_SelectedArea[defaultNumber].SetActive(true);
 
-        Vector3 SelectedArea_1Postion = new(100f, 100f, 100f);
+        UnityEngine.Vector3 SelectedArea_1Postion = new(100f, 100f, 100f);
 
         if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
