@@ -9,8 +9,8 @@ public class GameModeSelector : MonoBehaviour
     public Button buttonRoman;
     public Button buttonExit;
 
-    public SceneAsset gameModeClassic;
-    public SceneAsset gameModeRoman;
+    public SceneAsset arenaClassic;
+    public SceneAsset arenaRoman;
 
     private void Start()
     {
@@ -23,12 +23,12 @@ public class GameModeSelector : MonoBehaviour
 
     void OnbuttonClassicClick()
     {
-        SceneManager.LoadScene(gameModeClassic.name);
+        SceneManager.LoadScene(arenaClassic.name);
     }
     
     void OnbuttonRomanClick()
     {
-        SceneManager.LoadScene(gameModeRoman.name);
+        SceneManager.LoadScene(arenaRoman.name);
     }
 
     void OnbuttonExitClick()

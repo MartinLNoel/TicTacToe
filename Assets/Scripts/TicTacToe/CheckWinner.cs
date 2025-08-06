@@ -18,9 +18,12 @@ public class CheckWinner : MonoBehaviour
     }
 
     //A function that returns true if any three-of-a-kind is found on the 2D board
-    public bool CheckingWinner(GameObject currentToken)
+    public bool CheckingWinner(char currentToken)
     {
-        twoDToken = (currentToken == gameManager.PlayerOne) ? 'x' : 'o';
+        //Debug.Log($"twoDToken #2: {twoDToken}");
+        twoDToken = currentToken;
+        //twoDToken = (currentToken == gameManager.PlayerOne) ? 'x' : 'o';
+        Debug.Log($"twoDToken #3: {twoDToken}");
 
 
         if (CheckRows() || CheckColumn() || CheckDiagonal())

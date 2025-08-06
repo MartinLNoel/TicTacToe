@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -57,17 +56,16 @@ public class GameManager_Classic : MonoBehaviour
 
         if (playerPositon != new Vector3(100f, 100f, 100f))
         {
-            switch (ticTacToeBoard.UpdateTwoDBoard(currentToken))
+            char twoDToken = (currentToken == PlayerOne) ? 'X' : 'O';
+
+            switch (ticTacToeBoard.UpdateTwoDBoard(twoDToken))
             {
                 // Place is free and players didn't reach the maximum amount of tokens
                 case 0:
                     tokenClones.SpawnClone(playerPositon, currentToken);
-                    // Instantiate(currentToken, (playerPositon + new Vector3(0f, 3.12f, 0f)), Quaternion.identity);
 
-                    if (checkWinner.CheckingWinner(currentToken) == true)
+                    if (checkWinner.CheckingWinner(twoDToken) == true)
                     {
-                        char twoDToken = (currentToken == PlayerOne) ? 'X' : 'O';
-
                         DataStorage.Instance.ChangeGameOverTitle($"Winner is {twoDToken} !");
 
                         SceneManager.LoadScene(sceneToLoad.name);

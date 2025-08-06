@@ -37,16 +37,10 @@ public class DataStorage : MonoBehaviour
 
     public void ChangeGameOverTitle(string newText)
     {
-        //Debug.Log($"NewText: {newText}");
-        //Debug.Log($"resultText before assigned: {resultText}");
-
         resultText = newText;
-
-        //Debug.Log($"resultText after assigned: {resultText}");
     }
     public string DisplayGameOverTitle()
     {
-        //Debug.Log($"New function: {resultText}");
         return resultText;
     }
 
