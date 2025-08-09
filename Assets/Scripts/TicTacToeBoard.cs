@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEditor;
+using UnityEngine.SceneManagement;
 
 //A script used to record the player's game using a 2D Array.
 //Extra info => indexPosition is obtained from PlayerController script upon the player pressing space. This works because UpdateTwoDBoard is only called after spacebar.
@@ -7,7 +7,6 @@ using UnityEditor;
 public class TicTacToeBoard : MonoBehaviour
 {
     private TicTacToeBoard ticTacToeBoard;
-    private GameManager gameManager;
     private char twoDToken;
     public int indexPosition;
 
@@ -21,17 +20,15 @@ public class TicTacToeBoard : MonoBehaviour
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
         ticTacToeBoard = FindObjectOfType<TicTacToeBoard>();
-        
     }
 
     //A Function that converts the indexPosition into 2D Array indexs (2ADAI)
     //Then using the 2DAI, checks if that slot is empty
     //If empty, the 2D board is updated using the 2DAI
-    public int UpdateTwoDBoard(GameObject currentToken)
+    public int UpdateTwoDBoard(char currentToken)
     {
-        twoDToken = (currentToken == gameManager.PlayerOne) ? 'x' : 'o';
+        twoDToken = currentToken;
         int rowIndex;
         int columnIndex;
 
@@ -86,20 +83,17 @@ public class TicTacToeBoard : MonoBehaviour
             // Place is free and players didn't reach the maximum amount of tokens
             case 0:
                 twoDBoard[rowIndex, columnIndex] = twoDToken;
-               // Debug.Log($"case 0: ");
-               // CheckBoard();
                 return 0;
             // Place is not free and players didn't reach the maximum amount of tokens
             default:
-               // Debug.Log($"default: ");
-               // CheckBoard();
                 return 1;
             // Players have reached the maximum amount of tokens and they have chosen their own token
             case 2:
                 twoDBoard[rowIndex, columnIndex] = '?';
-                // Debug.Log($"case 2: ");
-                // CheckBoard();
                 return 2;
+            case 3:
+                //Players have reached the maximum amount of tokens and Classic mode is enabled
+                return 3;
         }
     }
 
@@ -118,12 +112,18 @@ public class TicTacToeBoard : MonoBehaviour
     {
         if (CheckoAmountOfTokens() == true && CheckxAmountOfTokens() == true)
         {
-            // Maximum amount of tokens reached and the player has chosen their own token
-            if (position == twoDToken)
-                return 2;
-            // Maximum amount of tokens reached and the player has not chosen their own token
+            if (SceneManager.GetActiveScene().name == "Arena_Roman")
+            {
+                // Maximum amount of tokens reached and the player has chosen their own token
+                if (position == twoDToken)
+                    return 2;
+                // Maximum amount of tokens reached and the player has not chosen their own token
+                else
+                    return 1;
+            }
             else
-                return 1;
+                // Players have reached the maximum amount of tokens and Classic mode is enabled
+                return 3;
         }
         // Place is free and players didn't reach the maximum amount of tokens
         else if (position == '?')
@@ -157,7 +157,7 @@ public class TicTacToeBoard : MonoBehaviour
         {
             for (int columnIndex = 0; columnIndex <= 2; columnIndex++)
             {
-                if (twoDBoard[rowIndex, columnIndex] == 'x')
+                if (twoDBoard[rowIndex, columnIndex] == 'X')
                     xCount += 1;
             }
         }
@@ -177,7 +177,7 @@ public class TicTacToeBoard : MonoBehaviour
         {
             for (int columnIndex = 0; columnIndex <= 2; columnIndex++)
             {
-                if (twoDBoard[rowIndex, columnIndex] == 'o')
+                if (twoDBoard[rowIndex, columnIndex] == 'O')
                     oCount += 1;
             }
         }
