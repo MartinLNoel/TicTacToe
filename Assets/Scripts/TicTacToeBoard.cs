@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //A script used to record the player's game using a 2D Array.
 //Extra info => indexPosition is obtained from PlayerController script upon the player pressing space. This works because UpdateTwoDBoard is only called after spacebar.
@@ -90,6 +91,9 @@ public class TicTacToeBoard : MonoBehaviour
             case 2:
                 twoDBoard[rowIndex, columnIndex] = '?';
                 return 2;
+            case 3:
+                //Players have reached the maximum amount of tokens and Classic mode is enabled
+                return 3;
         }
     }
 
@@ -108,12 +112,18 @@ public class TicTacToeBoard : MonoBehaviour
     {
         if (CheckoAmountOfTokens() == true && CheckxAmountOfTokens() == true)
         {
-            // Maximum amount of tokens reached and the player has chosen their own token
-            if (position == twoDToken)
-                return 2;
-            // Maximum amount of tokens reached and the player has not chosen their own token
+            if (SceneManager.GetActiveScene().name == "Arena_Roman")
+            {
+                // Maximum amount of tokens reached and the player has chosen their own token
+                if (position == twoDToken)
+                    return 2;
+                // Maximum amount of tokens reached and the player has not chosen their own token
+                else
+                    return 1;
+            }
             else
-                return 1;
+                // Players have reached the maximum amount of tokens and Classic mode is enabled
+                return 3;
         }
         // Place is free and players didn't reach the maximum amount of tokens
         else if (position == '?')

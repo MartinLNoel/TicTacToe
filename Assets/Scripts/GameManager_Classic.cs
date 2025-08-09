@@ -81,6 +81,11 @@ public class GameManager_Classic : MonoBehaviour
                     break;
                 default:
                     break;
+                case 3:
+                    // Players have reached the maximum amount of tokens and Classic mode is enabled
+                    DataStorage.Instance.ChangeGameOverTitle($"It's a draw!");
+                    SceneManager.LoadScene(sceneToLoad.name);
+                    break;
             }
         }
     }
